@@ -37,6 +37,8 @@ namespace FluentAzureBlobTesting
             var expectedContainerName = "sample";
             var expectedBlobName = "test";
             var expectedBlobData = new byte[1];
+            var expectedMetaDataKey = "samplekey";
+            var expectedMetaDataValue = "sampleValue";
 
             Action ExampleMethodUnderTest = new Action(() =>
             {
@@ -49,6 +51,7 @@ namespace FluentAzureBlobTesting
                     container.GetBlockBlobReference(expectedBlobName);
 
                 blob.UploadFromByteArray(expectedBlobData, 0, expectedBlobData.Length);
+                blob.Metadata.Add(expectedMetaDataKey, expectedMetaDataValue);
             });
 
             ExampleMethodUnderTest.Invoke();
@@ -56,7 +59,8 @@ namespace FluentAzureBlobTesting
             blobClient
                 .AssertContainerExists(expectedContainerName)
                 .AssertBlobExists(expectedBlobName)
-                .AssertBlobMatchesData(expectedBlobData);
+                .AssertBlobDataIs(expectedBlobData)
+                .AssertBlobContainsMetaData(expectedMetaDataKey, expectedMetaDataValue);
         }
     }
 }

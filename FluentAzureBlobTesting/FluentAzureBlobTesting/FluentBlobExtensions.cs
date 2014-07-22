@@ -42,7 +42,7 @@ namespace FluentAzureBlobTesting
             return blob;
         }
 
-        public static ICloudBlob AssertBlobMatchesData(this ICloudBlob blob, byte[] expectedData)
+        public static ICloudBlob AssertBlobDataIs(this ICloudBlob blob, byte[] expectedData)
         {
             byte[] blobData = new byte[blob.Properties.Length];
             var blobBytes = blob.DownloadToByteArray(blobData, 0);
@@ -53,6 +53,24 @@ namespace FluentAzureBlobTesting
             }
 
             Trace.WriteLine(string.Format("Blob data matches blobName '{0}'", blob.Name));
+
+            return blob;
+        }
+
+        public static ICloudBlob AssertBlobContainsMetaData(this ICloudBlob blob, string key, string value)
+        {
+            if (!blob.Metadata.ContainsKey(key))
+            {
+                Assert.Fail(string.Format("Blob metadata doesn't contain key '{1}' blobName '{0}'", blob.Name, key));
+            }
+
+            if (blob.Metadata[key] != value)
+            {
+                var actualValue = blob.Metadata[key];
+                Assert.Fail(string.Format("Blob metadata value doesn't match expected: '{0}' actual: '{1}', blobname: '{2}'", value, actualValue, blob.Name));
+            }
+
+            Trace.WriteLine(string.Format("Blob metadata matches blobName '{0}'", blob.Name));
 
             return blob;
         }
