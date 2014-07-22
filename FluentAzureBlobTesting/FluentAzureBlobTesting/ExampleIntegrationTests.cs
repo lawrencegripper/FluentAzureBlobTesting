@@ -52,6 +52,7 @@ namespace FluentAzureBlobTesting
 
                 blob.UploadFromByteArray(expectedBlobData, 0, expectedBlobData.Length);
                 blob.Metadata.Add(expectedMetaDataKey, expectedMetaDataValue);
+                blob.SetMetadata();
             });
 
             ExampleMethodUnderTest.Invoke();

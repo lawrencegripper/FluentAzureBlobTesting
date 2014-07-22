@@ -59,6 +59,8 @@ namespace FluentAzureBlobTesting
 
         public static ICloudBlob AssertBlobContainsMetaData(this ICloudBlob blob, string key, string value)
         {
+            blob.FetchAttributes();
+
             if (!blob.Metadata.ContainsKey(key))
             {
                 Assert.Fail(string.Format("Blob metadata doesn't contain key '{1}' blobName '{0}'", blob.Name, key));
