@@ -16,6 +16,7 @@ namespace FluentAzureBlobTesting
     /// </summary>
     public static class FluentBlobAssertions
     {
+        private static string StorageEmulatorLocation = @"C:\Program Files (x86)\Microsoft SDKs\Windows Azure\Storage Emulator\WAStorageEmulator.exe";
         public static CloudBlobContainer AssertContainerExists(this CloudBlobClient blobClient, string containerName)
         {
             var container = blobClient.GetContainerReference(containerName);
@@ -114,7 +115,6 @@ namespace FluentAzureBlobTesting
             proc.WaitForExit();
         }
 
-        private static string StorageEmulatorLocation = @"C:\Program Files (x86)\Microsoft SDKs\Windows Azure\Storage Emulator\WAStorageEmulator.exe";
     }
 
 
