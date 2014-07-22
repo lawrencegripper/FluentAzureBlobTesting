@@ -38,7 +38,7 @@ namespace FluentAzureBlobTesting
             var expectedBlobName = "test";
             var expectedBlobData = new byte[1];
 
-            Action ExampleUploadToTest = new Action(() =>
+            Action ExampleMethodUnderTest = new Action(() =>
             {
                 CloudBlobContainer container =
                     blobClient.GetContainerReference(expectedContainerName);
@@ -51,7 +51,7 @@ namespace FluentAzureBlobTesting
                 blob.UploadFromByteArray(expectedBlobData, 0, expectedBlobData.Length);
             });
 
-            ExampleUploadToTest.Invoke();
+            ExampleMethodUnderTest.Invoke();
 
             blobClient
                 .AssertContainerExists(expectedContainerName)
