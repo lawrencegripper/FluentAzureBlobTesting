@@ -1,3 +1,5 @@
+# WARNING: This is now very old and likely would need work to bring it up to date. Use caution.
+
 FluentAzureBlobTesting
 ======================
 
